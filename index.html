@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Superstart — ENT 110 Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #09090f;
+    --surface: #111118;
+    --surface2: #16161f;
+    --border: rgba(255,255,255,0.07);
+    --accent: #2563EB;
+    --accent-light: #3b82f6;
+    --accent-glow: rgba(37,99,235,0.18);
+    --text: #e8e8f0;
+    --text-muted: #7a7a92;
+    --text-dim: #4a4a62;
+    --white: #ffffff;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 64px;
+    background: rgba(9,9,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--white);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--accent-light); }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-tag {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--accent-light);
+    background: var(--accent-glow);
+    border: 1px solid rgba(59,130,246,0.25);
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 100%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 400px;
+    background: radial-gradient(ellipse, rgba(37,99,235,0.22) 0%, transparent 70%);
+    top: 20%; left: 50%; transform: translateX(-50%);
+    z-index: 0; pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 820px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent-light);
+    background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.2);
+    padding: 6px 14px; border-radius: 20px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent-light);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  h1 .accent { color: var(--accent-light); }
+
+  .hero-tagline {
+    margin-top: 1.5rem;
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    color: var(--text-muted);
+    font-weight: 300;
+    font-style: italic;
+    max-width: 560px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-desc {
+    margin-top: 1.25rem;
+    font-size: 1rem;
+    color: var(--text);
+    max-width: 520px;
+    line-height: 1.8;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .hero-actions {
+    margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: var(--white);
+    padding: 12px 24px; border-radius: 8px;
+    font-family: var(--font-body); font-weight: 500; font-size: 0.9rem;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(37,99,235,0.35);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-light);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px rgba(37,99,235,0.45);
+  }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--text-muted);
+    padding: 12px 24px; border-radius: 8px;
+    font-family: var(--font-body); font-weight: 500; font-size: 0.9rem;
+    text-decoration: none; border: 1px solid var(--border); cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, transform 0.15s;
+  }
+
+  .btn-ghost:hover {
+    color: var(--white); border-color: rgba(255,255,255,0.2);
+    transform: translateY(-1px);
+  }
+
+  .hero-meta {
+    margin-top: 4rem;
+    display: flex; gap: 3rem; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+
+  .hero-meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .hero-meta-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); }
+  .hero-meta-value { font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SHARED SECTION STYLES ── */
+  section { padding: 100px 5%; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent-light);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--white);
+    line-height: 1.15;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-intro {
+    margin-top: 1rem;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    line-height: 1.8;
+  }
+
+  .divider {
+    width: 40px; height: 2px;
+    background: var(--accent);
+    margin: 1.5rem 0;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+
+  .about-text p { color: var(--text-muted); line-height: 1.9; margin-bottom: 1rem; }
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .about-context {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  .context-stat {
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .context-stat:last-child { border-bottom: none; padding-bottom: 0; }
+  .context-stat:first-child { padding-top: 0; }
+
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 2rem; font-weight: 800;
+    color: var(--accent-light);
+    line-height: 1;
+  }
+
+  .stat-label { font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; }
+
+  /* ── PROBLEM ── */
+  #problem {}
+
+  .problem-header { max-width: 640px; }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .problem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .problem-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .problem-card:hover { border-color: rgba(37,99,235,0.3); transform: translateY(-2px); }
+  .problem-card:hover::before { transform: scaleX(1); }
+
+  .problem-icon {
+    width: 40px; height: 40px;
+    background: var(--accent-glow); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .problem-card p { font-size: 0.88rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.7; }
+
+  /* ── RESEARCH ── */
+  #research { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .research-tabs {
+    display: flex; gap: 0; margin-top: 2.5rem;
+    border: 1px solid var(--border); border-radius: 10px;
+    overflow: hidden; width: fit-content;
+  }
+
+  .tab-btn {
+    padding: 10px 20px;
+    background: transparent; color: var(--text-muted);
+    border: none; cursor: pointer;
+    font-family: var(--font-body); font-size: 0.85rem; font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+    border-right: 1px solid var(--border);
+  }
+
+  .tab-btn:last-child { border-right: none; }
+  .tab-btn.active { background: var(--accent); color: var(--white); }
+  .tab-btn:hover:not(.active) { background: var(--surface2); color: var(--white); }
+
+  .tab-content { display: none; margin-top: 2rem; }
+  .tab-content.active { display: block; animation: fadeUp 0.3s ease; }
+
+  .research-panel {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 3rem;
+    align-items: start;
+  }
+
+  .research-panel-meta h3 { margin-bottom: 1rem; }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+
+  .tag {
+    font-size: 0.75rem; font-weight: 500;
+    background: var(--surface2); color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 20px;
+  }
+
+  .research-panel-detail ul { list-style: none; }
+
+  .research-panel-detail li {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    display: flex; align-items: flex-start; gap: 10px;
+    line-height: 1.6;
+  }
+
+  .research-panel-detail li:last-child { border-bottom: none; }
+
+  .li-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0; margin-top: 7px;
+  }
+
+  /* ── INSIGHTS ── */
+  #insights {}
+
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .insight-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .insight-card:hover { border-color: rgba(37,99,235,0.3); transform: translateY(-2px); }
+
+  .insight-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem; font-weight: 800;
+    color: rgba(37,99,235,0.2);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+
+  .insight-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .insight-card p { font-size: 0.86rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* ── SOLUTION ── */
+  #solution { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .solution-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; margin-top: 3rem; align-items: start;
+  }
+
+  .solution-text p { color: var(--text-muted); line-height: 1.9; margin-bottom: 1rem; }
+
+  .solution-features { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+
+  .feature-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.25rem;
+    transition: border-color 0.2s;
+  }
+
+  .feature-item:hover { border-color: rgba(37,99,235,0.3); }
+
+  .feature-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    background: var(--accent-glow); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+
+  .feature-item h4 {
+    font-family: var(--font-display); font-size: 0.9rem;
+    font-weight: 700; color: var(--white); margin-bottom: 3px;
+  }
+
+  .feature-item p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+  .solution-visual {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem;
+  }
+
+  .pipeline {
+    display: flex; flex-direction: column; gap: 0;
+  }
+
+  .pipeline-step {
+    display: flex; align-items: flex-start; gap: 1rem;
+    position: relative;
+  }
+
+  .pipeline-connector {
+    display: flex; flex-direction: column; align-items: center;
+    width: 32px; flex-shrink: 0;
+  }
+
+  .pipeline-dot {
+    width: 32px; height: 32px;
+    border-radius: 50%; background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; color: var(--white);
+    flex-shrink: 0;
+    box-shadow: 0 0 16px rgba(37,99,235,0.4);
+  }
+
+  .pipeline-line {
+    width: 2px; flex: 1; min-height: 24px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    margin: 4px 0;
+  }
+
+  .pipeline-step:last-child .pipeline-line { display: none; }
+
+  .pipeline-body { padding: 4px 0 20px; }
+  .pipeline-body h4 { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; color: var(--white); }
+  .pipeline-body p { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+  /* ── LEAN CANVAS ── */
+  #lean-canvas {}
+
+  .canvas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem; margin-top: 3rem;
+  }
+
+  .canvas-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.5rem;
+  }
+
+  .canvas-card-label {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .canvas-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.7; }
+  .canvas-card ul { list-style: none; padding: 0; }
+  .canvas-card li { font-size: 0.84rem; color: var(--text-muted); padding: 3px 0; }
+  .canvas-card li::before { content: '→ '; color: var(--accent-light); }
+
+  .canvas-card.highlight {
+    border-color: rgba(37,99,235,0.3);
+    background: linear-gradient(135deg, var(--surface2), rgba(37,99,235,0.05));
+  }
+
+  /* ── JOURNEY ── */
+  #journey { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .journey-timeline {
+    margin-top: 3rem;
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .journey-timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 8px; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .journey-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .journey-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .journey-item::before {
+    content: '';
+    position: absolute; left: -2.5rem; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(37,99,235,0.5);
+  }
+
+  .journey-phase {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent-light); margin-bottom: 0.5rem;
+  }
+
+  .journey-item h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .journey-item p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.8; }
+
+  /* ── CONCLUSION ── */
+  #conclusion {}
+
+  .conclusion-layout {
+    display: grid; grid-template-columns: 2fr 1fr; gap: 4rem;
+    margin-top: 3rem; align-items: start;
+  }
+
+  .conclusion-text p { color: var(--text-muted); line-height: 1.9; margin-bottom: 1rem; }
+
+  .next-steps {
+    background: var(--surface);
+    border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem;
+  }
+
+  .next-steps h3 { font-size: 1rem; margin-bottom: 1.25rem; }
+
+  .next-step-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+    font-size: 0.84rem; color: var(--text-muted);
+  }
+
+  .next-step-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .step-check {
+    width: 18px; height: 18px; flex-shrink: 0;
+    border: 1.5px solid var(--accent); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+
+  .step-check::after {
+    content: ''; width: 8px; height: 5px;
+    border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
+    transform: rotate(-45deg) translateY(-1px);
+  }
+
+  /* ── CONTACT / FOOTER ── */
+  #contact {
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 80px 5% 60px;
+  }
+
+  .contact-inner {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 3rem;
+  }
+
+  .contact-left .contact-name {
+    font-family: var(--font-display);
+    font-size: 1.6rem; font-weight: 800; color: var(--white);
+    letter-spacing: -0.02em;
+  }
+
+  .contact-left .contact-role { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+
+  .contact-links { display: flex; flex-direction: row; gap: 0.75rem; margin-top: 1.5rem; }
+
+  .contact-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--text-muted); text-decoration: none; font-size: 0.88rem;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--accent-light); }
+
+  .contact-right { max-width: 380px; }
+
+  .contact-right p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; }
+
+  .footer-bottom {
+    margin-top: 4rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+
+  .footer-bottom p { font-size: 0.78rem; color: var(--text-dim); }
+
+  .footer-course {
+    font-size: 0.75rem; color: var(--text-dim);
+    background: var(--surface2); border: 1px solid var(--border);
+    padding: 4px 12px; border-radius: 20px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 4%; }
+    .nav-links { display: none; }
+
+    section { padding: 80px 4%; }
+    #hero { padding: 100px 4% 60px; }
+
+    h1 { font-size: 2.8rem; }
+
+    .about-grid,
+    .solution-layout,
+    .conclusion-layout,
+    .research-panel { grid-template-columns: 1fr; gap: 2rem; }
+
+    .canvas-grid { grid-template-columns: 1fr 1fr; }
+
+    .hero-meta { gap: 2rem; }
+
+    .contact-inner { flex-direction: column; }
+
+    .research-tabs { flex-wrap: wrap; width: 100%; }
+    .tab-btn { flex: 1; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 2.2rem; }
+    .canvas-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; }
+    .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">Superstart<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#insights">Insights</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#lean-canvas">Canvas</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="nav-tag">ENT 110</span>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Venture Creation Portfolio · 2024</div>
+    <h1>Superstart</h1>
+    <p class="hero-tagline">Simplifying cloud infrastructure for early-stage startups in Africa.</p>
+    <p class="hero-desc">
+      A research-driven startup concept built to bridge the DevOps gap holding back Africa's most ambitious founders — so they can ship faster, scale confidently, and focus on what actually matters.
+    </p>
+    <div class="hero-actions">
+      <a href="#research" class="btn-primary">View My Research ↓</a>
+      <a href="#solution" class="btn-ghost">See the Solution</a>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Course</span>
+        <span class="hero-meta-value">ENT 110</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Focus Area</span>
+        <span class="hero-meta-value">Cloud Infrastructure</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Market</span>
+        <span class="hero-meta-value">African Startups</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Stage</span>
+        <span class="hero-meta-value">Concept / Research</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <span class="section-label">01 — About the Project</span>
+  <h2>What is Superstart?</h2>
+  <div class="divider"></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        Superstart is a proposed platform designed to make cloud infrastructure accessible and manageable for early-stage African startups — without requiring a dedicated DevOps engineer.
+      </p>
+      <p>
+        The idea was born out of a simple observation: African founders are building world-class products, but many are bottlenecked by infrastructure complexity they were never trained to handle. Setting up servers, managing deployments, and configuring CI/CD pipelines can consume weeks of engineering time — time that should be going into the product itself.
+      </p>
+      <p>
+        I chose this problem because I kept seeing it firsthand — talented developers losing momentum because their deployment pipeline broke, or a founder spending nights debugging server configs. The solution doesn't need to be complicated; it needs to be right-sized for the African startup context.
+      </p>
+      <p>
+        Superstart offers prebuilt templates, guided setup flows, and automated deployment tooling — purpose-built for teams of 1–10 engineers operating in resource-constrained, fast-moving environments.
+      </p>
+    </div>
+    <div class="about-context">
+      <h3>Context: The African Tech Landscape</h3>
+      <div class="divider"></div>
+      <div class="context-stat">
+        <div class="stat-number">$6B+</div>
+        <div class="stat-label">Venture capital raised by African startups in recent years, driven by growing tech ecosystems in Lagos, Nairobi, Accra, and Cairo.</div>
+      </div>
+      <div class="context-stat">
+        <div class="stat-number">&lt;15%</div>
+        <div class="stat-label">Estimated share of early-stage African startups with a dedicated DevOps or infrastructure engineer on their team.</div>
+      </div>
+      <div class="context-stat">
+        <div class="stat-number">70%+</div>
+        <div class="stat-label">Of founders surveyed described cloud infrastructure setup as a "significant challenge" during their first year of building.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM ── -->
+<section id="problem">
+  <span class="section-label">02 — The Problem</span>
+  <div class="problem-header">
+    <h2>Infrastructure Shouldn't Be the Barrier to Building</h2>
+    <div class="divider"></div>
+    <p class="section-intro">Early-stage African startups face a consistent and painful infrastructure gap. The challenges aren't unique — but their impact is disproportionate in environments with fewer engineers and less institutional knowledge.</p>
+  </div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-icon">⚙️</div>
+      <h3>Infrastructure Complexity</h3>
+      <p>Cloud platforms like AWS, GCP, and Azure are powerful — but deeply complex. For a two-person team shipping their first product, the learning curve is steep enough to stall progress entirely. Founders without a technical co-founder often copy-paste configurations from StackOverflow without understanding what they're running.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">👨‍💻</div>
+      <h3>Lack of DevOps Expertise</h3>
+      <p>Hiring a DevOps or platform engineer is costly and hard to justify pre-revenue. Most founding teams in African startups are product or full-stack engineers — skilled at building features, but not necessarily at wiring infrastructure, managing security groups, or setting up autoscaling policies.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">🔁</div>
+      <h3>Manual, Fragile Deployments</h3>
+      <p>Without proper CI/CD pipelines, teams resort to manual deployments — SSH-ing into servers, running scripts by hand, or using ad-hoc FTP uploads. This introduces human error, makes rollbacks painful, and slows down iteration cycles significantly.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">⚠️</div>
+      <h3>Downtime and Reliability Risks</h3>
+      <p>Misconfigured load balancers, no health checks, no monitoring — downtime happens. For a startup trying to build trust with early users, even a 30-minute outage can damage reputation. Without proper observability, teams often don't know there's a problem until a user reports it.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">🌍</div>
+      <h3>Context Mismatch</h3>
+      <p>Most infrastructure tooling is built for teams in North America or Europe — assuming stable internet, abundant compute credit, and full-time site reliability engineers. African startups operate in a different reality: intermittent connectivity, cost constraints, and small teams wearing many hats.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">📚</div>
+      <h3>Knowledge Gaps & Poor Documentation</h3>
+      <p>Existing resources assume a lot. Tutorials that work for US-based AWS accounts may differ for African regions. Community support is thinner, and debugging can take 10x longer without a local network of DevOps practitioners to ask.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESEARCH ── -->
+<section id="research">
+  <span class="section-label">03 — Research Process</span>
+  <h2>How I Validated the Problem</h2>
+  <div class="divider"></div>
+  <p class="section-intro">I followed a multi-method research approach — combining firsthand interviews with quantitative surveys and secondary data — to build a grounded understanding of the infrastructure challenges facing African startups.</p>
+
+  <div class="research-tabs">
+    <button class="tab-btn active" onclick="showTab('interviews', this)">Interviews</button>
+    <button class="tab-btn" onclick="showTab('survey', this)">Survey</button>
+    <button class="tab-btn" onclick="showTab('secondary', this)">Secondary Research</button>
+  </div>
+
+  <div id="tab-interviews" class="tab-content active">
+    <div class="research-panel">
+      <div class="research-panel-meta">
+        <h3>Who I Spoke With</h3>
+        <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.7;">I conducted qualitative interviews with founders and developers actively building in the African startup ecosystem.</p>
+        <div class="tag-list">
+          <span class="tag">Startup Founders</span>
+          <span class="tag">Full-Stack Developers</span>
+          <span class="tag">Technical Co-founders</span>
+          <span class="tag">Solo Builders</span>
+        </div>
+      </div>
+      <div class="research-panel-detail">
+        <ul>
+          <li><span class="li-dot"></span>Explored how teams currently set up and manage their cloud infrastructure — what tools they use, what they avoid, and why.</li>
+          <li><span class="li-dot"></span>Asked about the biggest time sinks in early-stage product development, specifically around deployment and infrastructure tasks.</li>
+          <li><span class="li-dot"></span>Investigated whether teams had considered managed infrastructure tools and what prevented adoption (cost, trust, complexity).</li>
+          <li><span class="li-dot"></span>Asked about past infrastructure failures — downtime events, security incidents, botched deployments — and how they were handled.</li>
+          <li><span class="li-dot"></span>Probed on team composition: did they have anyone dedicated to infrastructure, or was it a shared, unowned responsibility?</li>
+          <li><span class="li-dot"></span>Explored willingness to pay for a simplified infrastructure product — and what value proposition would actually move them.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-survey" class="tab-content">
+    <div class="research-panel">
+      <div class="research-panel-meta">
+        <h3>Survey Overview</h3>
+        <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.7;">A structured survey distributed to developers and founders across online communities, tech hubs, and startup networks in Nigeria, Ghana, and Kenya.</p>
+        <div class="tag-list">
+          <span class="tag">Quantitative</span>
+          <span class="tag">Online Distribution</span>
+          <span class="tag">West & East Africa</span>
+        </div>
+      </div>
+      <div class="research-panel-detail">
+        <ul>
+          <li><span class="li-dot"></span>What cloud provider does your team currently use? (AWS / GCP / Azure / DigitalOcean / Other / None)</li>
+          <li><span class="li-dot"></span>How would you rate your team's confidence in managing cloud infrastructure independently? (1–5 scale)</li>
+          <li><span class="li-dot"></span>On average, how many hours per week does your team spend on infrastructure tasks (setup, maintenance, debugging)?</li>
+          <li><span class="li-dot"></span>Does your startup have an automated deployment pipeline (CI/CD)? If not, how do you currently deploy?</li>
+          <li><span class="li-dot"></span>Have you ever experienced a production outage or significant downtime? How did your team respond?</li>
+          <li><span class="li-dot"></span>Would you pay for a tool that handled infrastructure setup and deployment automation for you? What would fair pricing look like?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-secondary" class="tab-content">
+    <div class="research-panel">
+      <div class="research-panel-meta">
+        <h3>Sources & Data</h3>
+        <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.7;">I supplemented primary research with published reports, ecosystem analyses, and industry studies on African tech and cloud adoption.</p>
+        <div class="tag-list">
+          <span class="tag">Industry Reports</span>
+          <span class="tag">Ecosystem Data</span>
+          <span class="tag">Market Research</span>
+        </div>
+      </div>
+      <div class="research-panel-detail">
+        <ul>
+          <li><span class="li-dot"></span>The Partech Africa Venture Report — data on funding trends and startup growth across the continent.</li>
+          <li><span class="li-dot"></span>Google/IFC e-Conomy Africa Report — analysis of Africa's digital economy and the enablers and barriers to tech adoption.</li>
+          <li><span class="li-dot"></span>AWS and Genesys Works data on cloud skills gaps and developer training needs in emerging markets.</li>
+          <li><span class="li-dot"></span>Startup Genome's Global Startup Ecosystem Report — identifying where African hubs rank and what limits their growth.</li>
+          <li><span class="li-dot"></span>Stack Overflow Developer Survey — global data on DevOps tool adoption and infrastructure attitudes among engineers.</li>
+          <li><span class="li-dot"></span>AfriLabs and CcHUB Ecosystem Mapping Report — local context on hub growth, team sizes, and technical capacity.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INSIGHTS ── -->
+<section id="insights">
+  <span class="section-label">04 — Key Insights</span>
+  <h2>What the Research Revealed</h2>
+  <div class="divider"></div>
+  <p class="section-intro">Across interviews, surveys, and secondary data, five consistent themes emerged — each pointing to a real, underserved opportunity.</p>
+  <div class="insights-grid">
+    <div class="insight-card">
+      <div class="insight-num">01</div>
+      <h3>Speed Beats Optimization at the Early Stage</h3>
+      <p>Almost every founder and developer I spoke with said the same thing: "We just need it to work." Early-stage startups optimize for shipping speed, not infrastructure efficiency. They don't care about fine-tuning compute until their product actually has users — and the tools available don't reflect that.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-num">02</div>
+      <h3>Infrastructure is Often Unstructured and Undocumented</h3>
+      <p>Startups frequently build infrastructure on-the-fly, without documentation or design. One developer described it as "just doing things and hoping it holds." This becomes a compounding problem as teams grow — nobody fully understands the setup, and making changes becomes risky.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-num">03</div>
+      <h3>DevOps Expertise is Rare and Expensive</h3>
+      <p>Skilled DevOps engineers are among the highest-paid roles in tech globally — and that scarcity is even more acute in African markets. Most startups can't justify the hire, so infrastructure becomes the responsibility of whoever is "most technical," regardless of their actual expertise.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-num">04</div>
+      <h3>Cost Is Not the Primary Barrier — Complexity Is</h3>
+      <p>Contrary to initial assumptions, founders were less concerned about cloud bills and more concerned about not understanding what they were running. Many were on free tiers or small plans and still found the experience overwhelming. The barrier is cognitive, not financial.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-num">05</div>
+      <h3>Existing Tools Don't Fit the African Context</h3>
+      <p>Heroku, Render, Railway — these platforms exist and are used. But founders noted that documentation, billing, regional support, and community resources are all designed for a Western default. African startups need tooling that acknowledges their constraints and context, not just a translated version of what exists.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-num">06</div>
+      <h3>Deployment Failures Have Real Business Costs</h3>
+      <p>Several interview subjects shared stories of deployments gone wrong — a database migration that brought down their product for hours, a broken build that delayed a launch. These aren't just technical inconveniences; they erode user trust, delay fundraising conversations, and cost founders sleep.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOLUTION ── -->
+<section id="solution">
+  <span class="section-label">05 — The Solution</span>
+  <h2>Superstart</h2>
+  <div class="divider"></div>
+  <div class="solution-layout">
+    <div class="solution-text">
+      <p>
+        Superstart is a managed infrastructure platform built specifically for early-stage African startups. It abstracts away the complexity of cloud setup and deployment so founders can focus on building their product — not their server config.
+      </p>
+      <p>
+        The platform combines prebuilt infrastructure templates, guided onboarding, and automated deployment pipelines into a single, approachable interface. It's not a replacement for AWS or GCP — it's an intelligent layer on top of them, designed to make those tools usable by teams without a dedicated infrastructure engineer.
+      </p>
+      <p>
+        Think of it as going from a blank AWS console to a working, production-ready deployment in under an hour — with sensible defaults, auto-scaling, and monitoring configured out of the box.
+      </p>
+      <div class="solution-features">
+        <div class="feature-item">
+          <div class="feature-icon">📦</div>
+          <div>
+            <h4>Prebuilt Infrastructure Templates</h4>
+            <p>Battle-tested templates for common startup stacks — Node.js + PostgreSQL, Django + Redis, Next.js full-stack, and more. No Terraform knowledge required.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🚀</div>
+          <div>
+            <h4>Automated Deployment Pipelines</h4>
+            <p>Connect your GitHub repository and deploy automatically on every push. Built-in rollback support means a broken deploy is never a crisis.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔗</div>
+          <div>
+            <h4>CI/CD Integration Out-of-the-Box</h4>
+            <p>Pre-configured CI/CD workflows that run your tests, build your app, and deploy — without writing a single YAML file from scratch.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🎯</div>
+          <div>
+            <h4>Simple, Guided Onboarding</h4>
+            <p>A step-by-step setup experience that walks teams through connecting their cloud account, choosing a template, and deploying — with contextual guidance at every step.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="solution-visual">
+      <h3 style="margin-bottom:1.5rem;font-size:0.95rem;">How It Works</h3>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <div class="pipeline-connector">
+            <div class="pipeline-dot">1</div>
+            <div class="pipeline-line"></div>
+          </div>
+          <div class="pipeline-body">
+            <h4>Connect Your Repository</h4>
+            <p>Link your GitHub or GitLab account. Superstart reads your codebase and suggests the right infrastructure template.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-connector">
+            <div class="pipeline-dot">2</div>
+            <div class="pipeline-line"></div>
+          </div>
+          <div class="pipeline-body">
+            <h4>Choose a Template</h4>
+            <p>Select from prebuilt infrastructure setups for your stack. Customize environment variables, region, and compute size.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-connector">
+            <div class="pipeline-dot">3</div>
+            <div class="pipeline-line"></div>
+          </div>
+          <div class="pipeline-body">
+            <h4>Deploy with One Click</h4>
+            <p>Superstart provisions your cloud resources, sets up your CI/CD pipeline, and deploys your application — automatically.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-connector">
+            <div class="pipeline-dot">4</div>
+            <div class="pipeline-line"></div>
+          </div>
+          <div class="pipeline-body">
+            <h4>Monitor & Iterate</h4>
+            <p>View logs, uptime metrics, and deployment history in a single dashboard. Push a new commit — Superstart handles the rest.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-connector">
+            <div class="pipeline-dot">5</div>
+            <div class="pipeline-line"></div>
+          </div>
+          <div class="pipeline-body">
+            <h4>Scale When Ready</h4>
+            <p>When your startup grows, upgrade your plan and scale compute without changing your workflow or rebuilding from scratch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LEAN CANVAS ── -->
+<section id="lean-canvas">
+  <span class="section-label">06 — Lean Canvas</span>
+  <h2>Business Model at a Glance</h2>
+  <div class="divider"></div>
+  <p class="section-intro">A high-level view of the core business logic behind Superstart, mapped through the Lean Canvas framework.</p>
+  <div class="canvas-grid">
+    <div class="canvas-card">
+      <div class="canvas-card-label">Problem</div>
+      <ul>
+        <li>Cloud infrastructure is too complex for early-stage teams</li>
+        <li>No dedicated DevOps engineers at most African startups</li>
+        <li>Manual deployments cause downtime and slow iteration</li>
+        <li>Existing tools aren't designed for the African context</li>
+      </ul>
+    </div>
+    <div class="canvas-card highlight">
+      <div class="canvas-card-label">Value Proposition</div>
+      <p>The fastest path from code to production for African startups — with no DevOps experience required. Reliable, automated, and built for teams of 1–10.</p>
+    </div>
+    <div class="canvas-card">
+      <div class="canvas-card-label">Solution</div>
+      <ul>
+        <li>Prebuilt infrastructure templates for common stacks</li>
+        <li>One-click automated deployment via CI/CD</li>
+        <li>Guided onboarding and contextual documentation</li>
+        <li>Built-in monitoring and rollback tooling</li>
+      </ul>
+    </div>
+    <div class="canvas-card">
+      <div class="canvas-card-label">Customer Segments</div>
+      <ul>
+        <li>Early-stage African startups (pre-Series A)</li>
+        <li>Solo technical founders</li>
+        <li>Small engineering teams (2–10 engineers)</li>
+        <li>African tech accelerators and startup hubs</li>
+      </ul>
+    </div>
+    <div class="canvas-card">
+      <div class="canvas-card-label">Channels</div>
+      <ul>
+        <li>Developer communities (Twitter/X, Dev.to, Discord)</li>
+        <li>Startup hubs and accelerators (YC Africa, CcHUB, GreenHouse)</li>
+        <li>Content marketing — tutorials, guides, YouTube</li>
+        <li>Word of mouth and founder referrals</li>
+      </ul>
+    </div>
+    <div class="canvas-card">
+      <div class="canvas-card-label">Revenue Streams</div>
+      <ul>
+        <li>Freemium tier for solo builders and side projects</li>
+        <li>Subscription plans for growing teams ($20–$99/month)</li>
+        <li>Infrastructure markup on cloud resources provisioned</li>
+        <li>Enterprise plans for larger teams or hub partnerships</li>
+      </ul>
+    </div>
+    <div class="canvas-card">
+      <div class="canvas-card-label">Key Metrics</div>
+      <ul>
+        <li>Number of active deployments</li>
+        <li>Time-to-first-deploy for new users</li>
+        <li>Monthly recurring revenue (MRR)</li>
+        <li>Deployment success rate</li>
+      </ul>
+    </div>
+    <div class="canvas-card">
+      <div class="canvas-card-label">Cost Structure</div>
+      <ul>
+        <li>Infrastructure and cloud hosting costs</li>
+        <li>Engineering team and product development</li>
+        <li>Customer support and community management</li>
+        <li>Marketing and developer relations</li>
+      </ul>
+    </div>
+    <div class="canvas-card">
+      <div class="canvas-card-label">Unfair Advantage</div>
+      <p>Deep contextual understanding of the African startup ecosystem — built by someone inside it, not parachuted in from outside. Community-first distribution and local developer trust.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── JOURNEY ── -->
+<section id="journey">
+  <span class="section-label">07 — My Process &amp; Journey</span>
+  <h2>How This Idea Evolved</h2>
+  <div class="divider"></div>
+  <p class="section-intro">This project wasn't a straight line. It started with a vague frustration and gradually sharpened through research, conversations, and honest reflection.</p>
+  <div class="journey-timeline">
+    <div class="journey-item">
+      <div class="journey-phase">Phase 1 — Observation</div>
+      <h3>Noticing the Friction</h3>
+      <p>The idea started with personal experience. I'd seen developers — smart, capable people — lose entire days to infrastructure problems that shouldn't have been that hard. Debugging a broken Nginx config. Figuring out why a container wouldn't start. These aren't product problems; they're tax on the product. I started writing down every time I saw someone stopped by infrastructure instead of by a hard product question.</p>
+    </div>
+    <div class="journey-item">
+      <div class="journey-phase">Phase 2 — Early Assumptions</div>
+      <h3>My First Hypothesis Was Wrong</h3>
+      <p>I initially assumed the core problem was cost — that African startups couldn't afford cloud infrastructure tools. Interviews quickly corrected me. The problem wasn't money; it was complexity and confidence. Founders would rather pay for something that worked than struggle with something free. That was a pivotal reframe for the entire project.</p>
+    </div>
+    <div class="journey-item">
+      <div class="journey-phase">Phase 3 — Research Deepens</div>
+      <h3>Patterns Across Many Conversations</h3>
+      <p>As I conducted more interviews and distributed my survey, clear patterns emerged. The DevOps gap showed up again and again. Manual deployments, unstructured infrastructure, no monitoring — these weren't edge cases; they were the norm. The secondary research confirmed that this was a structural gap in the ecosystem, not just a few unlucky teams.</p>
+    </div>
+    <div class="journey-item">
+      <div class="journey-phase">Phase 4 — Solution Design</div>
+      <h3>Designing for the Right Customer</h3>
+      <p>The biggest design challenge was scope. Infrastructure is a huge domain. I had to resist the temptation to solve everything and instead focus on the specific job a founder needs done: go from code to deployed product as quickly and reliably as possible. The templates concept emerged from asking "what would the ideal first day on Superstart look like?" — and working backward from there.</p>
+    </div>
+    <div class="journey-item">
+      <div class="journey-phase">Phase 5 — Reflection</div>
+      <h3>What I Learned About Building</h3>
+      <p>This project taught me that good ideas come from good listening. Every assumption I had going in was tested by the research — and most of them were refined or replaced. I also learned that the African startup ecosystem is not a monolith; Lagos, Nairobi, and Accra have different dynamics, different founder profiles, and different infrastructure realities. A good solution will have to account for that nuance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONCLUSION ── -->
+<section id="conclusion">
+  <span class="section-label">08 — Conclusion &amp; Future Direction</span>
+  <h2>What Comes Next</h2>
+  <div class="divider"></div>
+  <div class="conclusion-layout">
+    <div class="conclusion-text">
+      <p>
+        Superstart started as a course exercise and evolved into something I genuinely believe could matter. The infrastructure gap in Africa's startup ecosystem is real, well-documented, and underserved. And the founders who need help aren't sitting around waiting for a perfect solution — they're shipping imperfect ones right now.
+      </p>
+      <p>
+        The immediate next step would be building a minimum viable product: a simple deployment tool that handles a single stack (say, a Node.js app on a managed database) end-to-end. Not all stacks, not all clouds — just one path, done really well, for real founders to try.
+      </p>
+      <p>
+        From there, the roadmap would be guided by user feedback: which templates are most requested? Where do people get stuck? What does the monitoring dashboard actually need to show? Building in public, within the communities this product is meant to serve, would be central to the strategy.
+      </p>
+      <p>
+        Longer term, I see Superstart as a platform that grows with its users — supporting more stacks, integrating with more providers, and eventually becoming the default infrastructure layer for African startups the way GitHub became the default code layer. That's an ambitious vision, but it starts with one deployment working for one founder who didn't have to call anyone for help.
+      </p>
+      <p>
+        This project reminded me that entrepreneurship isn't about having a perfect idea — it's about being curious enough to find a real problem and disciplined enough to understand it before proposing a solution. That process is what ENT 110 gave me, and it's what I'll carry forward regardless of what happens with Superstart.
+      </p>
+    </div>
+    <div class="next-steps">
+      <h3>Next Steps Roadmap</h3>
+      <div class="next-step-item">
+        <div class="step-check"></div>
+        <span>Build an MVP for one stack (Node.js + PostgreSQL)</span>
+      </div>
+      <div class="next-step-item">
+        <div class="step-check"></div>
+        <span>Recruit 10 beta users from startup communities</span>
+      </div>
+      <div class="next-step-item">
+        <div class="step-check"></div>
+        <span>Publish weekly deployment tutorials to build developer trust</span>
+      </div>
+      <div class="next-step-item">
+        <div class="step-check"></div>
+        <span>Partner with a local accelerator for a pilot cohort</span>
+      </div>
+      <div class="next-step-item">
+        <div class="step-check"></div>
+        <span>Expand template library based on demand data</span>
+      </div>
+      <div class="next-step-item">
+        <div class="step-check"></div>
+        <span>Apply to a startup program for early-stage funding</span>
+      </div>
+      <div class="next-step-item">
+        <div class="step-check"></div>
+        <span>Explore multi-cloud support (AWS + GCP + DigitalOcean)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT / FOOTER ── -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div class="contact-name">Superstart</div>
+      <div class="contact-role">ENT 110 Portfolio Project · Student / Developer</div>
+      <div class="contact-links">
+        <a href="mailto:aladebaruwa@gmail.com" class="contact-link">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        </a>
+        <a href="https://github.com/unknown" class="contact-link" target="_blank">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <p>
+        This website was built as part of ENT 110: Introduction to Venture Creation. It documents the full research and ideation process behind Superstart — from problem discovery to solution design.
+      </p>
+      <p style="margin-top:1rem;">
+        If you're a founder, developer, or investor working in the African tech space and this resonates with you — I'd genuinely love to hear from you.
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Superstart. ENT 110 Portfolio Project.</p>
+    <span class="footer-course">Introduction to Venture Creation</span>
+  </div>
+</section>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // Scroll fade-in for cards
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(
+    '.problem-card, .insight-card, .canvas-card, .journey-item, .feature-item'
+  ).forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
